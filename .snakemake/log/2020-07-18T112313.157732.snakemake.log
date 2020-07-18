@@ -1,0 +1,19 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	supportvm
+	1
+
+[Sat Jul 18 11:23:13 2020]
+rule supportvm:
+    input: output_train_x/flights.csv, output_train_y/flights.csv
+    output: supportvm_results/flights.csv
+    jobid: 0
+
+[Sat Jul 18 11:23:15 2020]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /Users/vikasreddy/Desktop/Project/.snakemake/log/2020-07-18T112313.157732.snakemake.log
