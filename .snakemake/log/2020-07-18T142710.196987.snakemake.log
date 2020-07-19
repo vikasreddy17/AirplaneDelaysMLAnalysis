@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	dataset_split
+	1	supportvm
+	2
+
+[Sat Jul 18 14:27:10 2020]
+rule dataset_split:
+    input: input_data_df.csv
+    output: output_train_x/flights.csv, output_test_x/flights.csv, output_train_y/flights.csv, output_test_y/flights.csv
+    jobid: 1
+
+[Sat Jul 18 14:29:02 2020]
+Finished job 1.
+1 of 2 steps (50%) done
+
+[Sat Jul 18 14:29:02 2020]
+rule supportvm:
+    input: output_train_x/flights.csv, output_train_y/flights.csv
+    output: supportvm_results/flights.csv
+    jobid: 0
+
+[Sat Jul 18 14:29:03 2020]
+Error in rule supportvm:
+    jobid: 0
+    output: supportvm_results/flights.csv
+    shell:
+        python SVM_CrossVal.py --input_train_x output_train_x/flights.csv --input_train_y output_train_y/flights.csv --supportvm_results supportvm_results/flights.csv
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/vikasreddy/Desktop/Project/.snakemake/log/2020-07-18T142710.196987.snakemake.log

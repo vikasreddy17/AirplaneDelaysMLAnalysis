@@ -25,19 +25,13 @@ var_discrip_dict['Variable Name'] = ['YEAR', 'MONTH', 'DAY', 'DAY_OF_WEEK', 'AIR
 var_discrip_dict['Description'] = ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1',]
 var_discrip_dict['Catagorical/Continuous'] = ['Catagorical', 'Catagorical', 'Catagorical', 'Catagorical', 'Catagorical', 'Catagorical', 'ID', 'Catagorical', 'Catagorical', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Catagorical', 'Catagorical', 'Catagorical', 'Continuous', 'Continuous', 'Continuous', 'Continuous', 'Continuous']
 var_discrip_dict = pd.DataFrame(var_discrip_dict)
-#Univariate analysis
-flightsdata.hist()
-#bivariate analysis
-corrmatrix = flightsdata.corr()
-sea.heatmap(corrmatrix, annot=True)
 
 continuous_varsdf = (var_discrip_dict.loc[var_discrip_dict['Catagorical/Continuous'] == 'Continuous', :])
 catagorical_varsdf = (var_discrip_dict.loc[var_discrip_dict['Catagorical/Continuous'] == 'Catagorical', :])
 
 flightsdata = flightsdata.loc[flightsdata['CANCELLED'] == 0,:]
 target_flightsdata = flightsdata['ARRIVAL_DELAY']
-cont_flightsdata = flightsdata[['SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME', 'AIR_SYSTEM_DELAY', 'SECURITY_DELAY', 'AIRLINE_DELAY', 'LATE_AIRCRAFT_DELAY', 'WEATHER_DELAY']]
-x_train, x_test, y_train, y_test = train_test_split(cont_flightsdata, target_flightsdata, test_size=0.2,random_state=0)
+cont_flightsdata = flightsdata[['SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME']]
 x_train.to_csv(args.flightsoutput_train_x)
 x_test.to_csv(args.flightsoutput_test_x)
 y_train.to_csv(args.flightsoutput_train_y)

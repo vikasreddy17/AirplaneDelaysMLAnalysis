@@ -1,14 +1,12 @@
 import pandas as pd
-from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
-from sklearn import datasets
 from sklearn import svm
 import argparse
 
-
-output_train_x = pd.read_csv("output_train_x/flights.csv", nrows=100)
-output_train_y = pd.read_csv("output_train_y/flights.csv", nrows=100)
+am_rows = 30
+output_train_x = pd.read_csv("output_train_x/flights.csv", nrows=am_rows)
+output_train_y = pd.read_csv("output_train_y/flights.csv", nrows=am_rows)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--input_train_x', type=str, help='snakefile', default=None)
@@ -27,5 +25,5 @@ for ker in ['rbf', 'poly', 'linear']:
         dictionary['kernelname'].append(ker)
         dictionary['cvalue'].append(val/1000)
         dictionary['recallval'].append(scores.mean())
-new_dataframe=pd.DataFrame(dictionary)
-new_dataframe.to_csv(args.supportvm_results)
+SVM_results=pd.DataFrame(dictionary)
+SVM_results.to_csv(args.supportvm_results)

@@ -7,3 +7,8 @@ rule supportvm:
 	input: 'output_train_x/flights.csv', 'output_train_y/flights.csv'
 	output: 'supportvm_results/flights.csv'
 	shell: 'python SVM_CrossVal.py --input_train_x {input[0]} --input_train_y {input[1]} --supportvm_results {output}'
+
+rule decisiontree:
+	input: 'output_train_x/flights.csv', 'output_train_y/flights.csv'
+	output: 'decisiontree_results/flights.csv'
+	shell: 'python SVM_CrossVal.py --input_train_x {input[0]} --input_train_y {input[1]} --decisiontree_results {output}'
