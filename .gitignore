@@ -1,2 +1,6 @@
 Dataset
 input_data_df.csv
+output_train_x/flights.csv
+output_test_x/flights.csv
+output_train_y/flights.csv
+output_test_y/flights.csv

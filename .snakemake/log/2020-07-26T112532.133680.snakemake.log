@@ -1,0 +1,25 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	DecisionTree
+	1
+
+[Sun Jul 26 11:25:32 2020]
+rule DecisionTree:
+    input: output_train_x/flights.csv, output_train_y/flights.csv
+    output: decisiontree_results/flights.csv
+    jobid: 0
+
+Waiting at most 5 seconds for missing files.
+MissingOutputException in line 11 of /Users/vikasreddy/Desktop/Project/Snakefile:
+Job completed successfully, but some output files are missing. Missing files after 5 seconds:
+decisiontree_results/flights.csv
+This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait.
+  File "/Users/vikasreddy/opt/anaconda3/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 544, in handle_job_success
+  File "/Users/vikasreddy/opt/anaconda3/lib/python3.7/site-packages/snakemake/executors/__init__.py", line 231, in handle_job_success
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/vikasreddy/Desktop/Project/.snakemake/log/2020-07-26T112532.133680.snakemake.log

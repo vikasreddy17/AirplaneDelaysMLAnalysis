@@ -3,19 +3,11 @@ import pandas as pd
 import seaborn as sea
 import sklearn as skl
 import matplotlib.pyplot as plt
-import argparse
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn import datasets
 from sklearn import svm
-parser = argparse.ArgumentParser()
-parser.add_argument('--flightsinput_file', type=str, help='snakefile', default=None)
-parser.add_argument('--flightsoutput_train_x', type=str, help='snakefile', default=None)
-parser.add_argument('--flightsoutput_test_x', type=str, help='snakefile', default=None)
-parser.add_argument('--flightsoutput_train_y', type=str, help='snakefile', default=None)
-parser.add_argument('--flightsoutput_test_y', type=str, help='snakefile', default=None)
-args = parser.parse_args()
-print(args)
+import pdb
 #load data
 flightsdata = pd.read_csv("Dataset/flights.csv")
 flightsdata = pd.DataFrame(flightsdata)
@@ -29,10 +21,27 @@ var_discrip_dict = pd.DataFrame(var_discrip_dict)
 continuous_varsdf = (var_discrip_dict.loc[var_discrip_dict['Catagorical/Continuous'] == 'Continuous', :])
 catagorical_varsdf = (var_discrip_dict.loc[var_discrip_dict['Catagorical/Continuous'] == 'Catagorical', :])
 
+
+#Univariate analysis
+flightsdata.hist()
+plt.savefig('FULL_flights_histogram.png')
+#bivariate analysis
+corrmatrix = flightsdata.corr()
+sea.heatmap(corrmatrix, annot=True)
+plt.savefig('FULL_correlation_heatmap.png')
+
+
+
 flightsdata = flightsdata.loc[flightsdata['CANCELLED'] == 0,:]
-target_flightsdata = flightsdata['ARRIVAL_DELAY']
+#missing values
+print(flightsdata.isna().sum())
+flightsdata = flightsdata.loc[flightsdata.isna().sum(axis=1) == 0, :]
+pdb.set_trace()
+
+target_flightsdata = flightsdata[['ARRIVAL_DELAY']]
 cont_flightsdata = flightsdata[['SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME']]
-x_train.to_csv(args.flightsoutput_train_x)
-x_test.to_csv(args.flightsoutput_test_x)
-y_train.to_csv(args.flightsoutput_train_y)
-y_test.to_csv(args.flightsoutput_test_y)
+x_train, x_test, y_train, y_test = train_test_split(cont_flightsdata, target_flightsdata, test_size=0.2, random_state=100)
+x_train.to_csv(args.flightsoutput_train_x ,index=None)
+x_test.to_csv(args.flightsoutput_test_x ,index=None)
+y_train.to_csv(args.flightsoutput_train_y ,index=None)
+y_test.to_csv(args.flightsoutput_test_y ,index=None)

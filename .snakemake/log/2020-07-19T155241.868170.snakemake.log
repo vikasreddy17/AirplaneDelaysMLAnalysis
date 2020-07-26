@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	Dataexploration
+	1	DecisionTree
+	2
+
+[Sun Jul 19 15:52:41 2020]
+rule Dataexploration:
+    input: input_data_df.csv
+    output: output_train_x/flights.csv, output_test_x/flights.csv, output_train_y/flights.csv, output_test_y/flights.csv
+    jobid: 1
+
+[Sun Jul 19 15:54:40 2020]
+Finished job 1.
+1 of 2 steps (50%) done
+
+[Sun Jul 19 15:54:40 2020]
+rule DecisionTree:
+    input: output_train_x/flights.csv, output_train_y/flights.csv
+    output: decisiontree_results/flights.csv
+    jobid: 0
+
+[Sun Jul 19 15:54:44 2020]
+Error in rule DecisionTree:
+    jobid: 0
+    output: decisiontree_results/flights.csv
+    shell:
+        python DecisionTree.py --input_train_x output_train_x/flights.csv --input_train_y output_train_y/flights.csv --decisiontree_results decisiontree_results/flights.csv
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/vikasreddy/Desktop/Project/.snakemake/log/2020-07-19T155241.868170.snakemake.log
