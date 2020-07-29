@@ -5,15 +5,20 @@ rule Dataexploration:
 
 rule SVM_CrossVal:
 	input: 'output_train_x/flights.csv', 'output_train_y/flights.csv'
-	output: 'supportvm_results/flights.csv'
+	output: 'supportvm_results.csv'
 	shell: 'python SVM_CrossVal.py'
 
 rule DecisionTree:
 	input: 'output_train_x/flights.csv', 'output_train_y/flights.csv'
-	output: 'decisiontree_results/flights.csv'
+	output: 'decisiontree_results.csv'
 	shell: 'python DecisionTree.py'
 
 rule AdaBoost:
 	input: 'output_train_x/flights.csv', 'output_train_y/flights.csv'
-	output: 'AdaBoost_results/flights.csv'
+	output: 'AdaBoost_results.csv'
 	shell: 'python DecisionTree.py'
+
+rule Random:
+	input: 'AdaBoost_results.csv', 'decisiontree_results.csv' ,'supportvm_results.csv'
+	output: 'random.csv'
+	shell: 'python SVM_CrossVal.py', 'python DecisionTree.py', 'python AdaBoost.py'

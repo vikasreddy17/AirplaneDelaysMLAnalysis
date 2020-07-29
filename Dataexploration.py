@@ -30,18 +30,16 @@ corrmatrix = flightsdata.corr()
 sea.heatmap(corrmatrix, annot=True)
 plt.savefig('FULL_correlation_heatmap.png')
 
-
-
 flightsdata = flightsdata.loc[flightsdata['CANCELLED'] == 0,:]
 #missing values
-print(flightsdata.isna().sum())
+flightsdata = flightsdata[['SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME', 'ARRIVAL_DELAY']]
 flightsdata = flightsdata.loc[flightsdata.isna().sum(axis=1) == 0, :]
-pdb.set_trace()
+print(flightsdata.shape)
 
 target_flightsdata = flightsdata[['ARRIVAL_DELAY']]
 cont_flightsdata = flightsdata[['SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME']]
 x_train, x_test, y_train, y_test = train_test_split(cont_flightsdata, target_flightsdata, test_size=0.2, random_state=100)
-x_train.to_csv(args.flightsoutput_train_x ,index=None)
-x_test.to_csv(args.flightsoutput_test_x ,index=None)
-y_train.to_csv(args.flightsoutput_train_y ,index=None)
-y_test.to_csv(args.flightsoutput_test_y ,index=None)
+x_train.to_csv('output_train_x/flights.csv' ,index=None)
+x_test.to_csv('output_test_x/flights.csv' ,index=None)
+y_train.to_csv('output_train_y/flights.csv' ,index=None)
+y_test.to_csv('output_test_y/flights.csv',index=None)

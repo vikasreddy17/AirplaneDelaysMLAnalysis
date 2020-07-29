@@ -18,4 +18,4 @@ for ker in ['rbf', 'poly', 'linear']:
         dictionary['cvalue'].append(val/1000)
         dictionary['recallval'].append(scores.mean())
 SVM_results=pd.DataFrame(dictionary)
-SVM_results.to_csv(supportvm_results/flights.csv)
+SVM_results.to_csv(supportvm_results.csv)

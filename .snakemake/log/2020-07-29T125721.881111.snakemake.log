@@ -1,0 +1,3 @@
+TypeError in line 24 of /Users/vikasreddy/Desktop/Project/Snakefile:
+shellcmd() takes 2 positional arguments but 4 were given
+  File "/Users/vikasreddy/Desktop/Project/Snakefile", line 24, in <module>

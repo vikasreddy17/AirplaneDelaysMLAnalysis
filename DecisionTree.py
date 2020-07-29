@@ -19,4 +19,4 @@ for leafnodes in range(2,20):
         dictionary['max_depth'].append(md)
         dictionary['model_score'].append(scores.mean())
 Decision_Tree_Results=pd.DataFrame(dictionary)
-Decision_Tree_Results.to_csv('decisiontree_results/flights.csv')
+Decision_Tree_Results.to_csv('decisiontree_results.csv')
