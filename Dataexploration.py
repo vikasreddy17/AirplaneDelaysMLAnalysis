@@ -8,9 +8,12 @@ from sklearn.model_selection import cross_val_score
 from sklearn import datasets
 from sklearn import svm
 import pdb
+from tqdm import tqdm
+
 #load data
 flightsdata = pd.read_csv("Dataset/flights.csv")
 flightsdata = pd.DataFrame(flightsdata)
+flightsdata = flightsdata.sample(2000000)
 #variable table
 var_discrip_dict = {'Variable Name': [] , 'Description':[] , 'Catagorical/Continuous': []}
 var_discrip_dict['Variable Name'] = ['YEAR', 'MONTH', 'DAY', 'DAY_OF_WEEK', 'AIRLINE', 'FLIGHT_NUMBER', 'TAIL_NUMBER', 'ORIGIN_AIRPORT', 'DESTINATION_AIRPORT', 'SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', "AIR_TIME", 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', "SCHEDULED_ARRIVAL", 'ARRIVAL_TIME', 'ARRIVAL_DELAY', 'DIVERTED', 'CANCELLED', 'CANCELLATION_REASON', 'AIR_SYSTEM_DELAY', 'SECURITY_DELAY', 'AIRLINE_DELAY', 'LATE_AIRCRAFT_DELAY', 'WEATHER_DELAY']
@@ -29,6 +32,10 @@ plt.savefig('FULL_flights_histogram.png')
 corrmatrix = flightsdata.corr()
 sea.heatmap(corrmatrix, annot=True)
 plt.savefig('FULL_correlation_heatmap.png')
+#correlation bar chart
+corrmatrix = corrmatrix.stack()
+corrmatrix = corrmatrix.reset_index()
+pdb.set_trace()
 
 flightsdata = flightsdata.loc[flightsdata['CANCELLED'] == 0,:]
 #missing values
@@ -38,8 +45,8 @@ print(flightsdata.shape)
 
 target_flightsdata = flightsdata[['ARRIVAL_DELAY']]
 cont_flightsdata = flightsdata[['SCHEDULED_DEPARTURE', 'DEPARTURE_TIME', 'DEPARTURE_DELAY', 'TAXI_OUT', 'WHEELS_OFF', 'SCHEDULED_TIME', 'ELAPSED_TIME', 'AIR_TIME', 'DISTANCE', 'WHEELS_ON', 'TAXI_IN', 'SCHEDULED_ARRIVAL', 'ARRIVAL_TIME']]
-x_train, x_test, y_train, y_test = train_test_split(cont_flightsdata, target_flightsdata, test_size=0.2, random_state=100)
-x_train.to_csv('output_train_x/flights.csv' ,index=None)
-x_test.to_csv('output_test_x/flights.csv' ,index=None)
-y_train.to_csv('output_train_y/flights.csv' ,index=None)
-y_test.to_csv('output_test_y/flights.csv',index=None)
+#x_train, x_test, y_train, y_test = train_test_split(cont_flightsdata, target_flightsdata, test_size=0.2, random_state=100)
+#x_train.to_csv('output_data/output_train_x.csv' ,index=None)
+#x_test.to_csv('output_data/output_test_x.csv' ,index=None)
+#y_train.to_csv('output_data/output_train_y.csv' ,index=None)
+#y_test.to_csv('output_data/output_test_y.csv',index=None)
