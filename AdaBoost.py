@@ -4,6 +4,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.datasets import make_regression
 from sklearn.model_selection import cross_validate
+from tqdm import tqdm
 
 print('start')
 am_rows=1000
@@ -14,7 +15,7 @@ assert(output_train_y.shape[0] == output_train_x.shape[0])
 
 
 dictionary = {'n_estimators': [] , 'learning_rate':[], 'test_score': [], 'train_score': [], 'max_depth': []}
-for n_estimators in range(10,30):
+for n_estimators in tqdm(range(10,30)):
     for learning_rate in range(85, 95):
     	for md in range(2,6):
     		clf = tree.DecisionTreeRegressor(max_depth=md)

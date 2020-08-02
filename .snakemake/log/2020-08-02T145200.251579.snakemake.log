@@ -1,0 +1,26 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	SVM_CrossVal
+	1
+
+[Sun Aug  2 14:52:00 2020]
+rule SVM_CrossVal:
+    input: output_data/output_train_x.csv, output_data/output_train_y.csv
+    output: supportvm_results.csv
+    jobid: 0
+
+[Sun Aug  2 14:52:02 2020]
+Error in rule SVM_CrossVal:
+    jobid: 0
+    output: supportvm_results.csv
+    shell:
+        python SVM_CrossVal.py
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /Users/vikasreddy/Desktop/Project/.snakemake/log/2020-08-02T145200.251579.snakemake.log

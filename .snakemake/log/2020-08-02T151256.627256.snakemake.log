@@ -1,0 +1,15 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	SVM_CrossVal
+	1
+
+[Sun Aug  2 15:12:56 2020]
+rule SVM_CrossVal:
+    input: output_data/output_train_x.csv, output_data/output_train_y.csv
+    output: supportvm_results.csv
+    jobid: 0
+
