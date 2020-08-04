@@ -21,3 +21,4 @@ for ker in tqdm(['rbf', 'poly', 'linear']):
         dictionary['recallval'].append(scores.mean())
 SVM_results=pd.DataFrame(dictionary)
 SVM_results.to_csv('SVM_cross_val_results.csv')
+print("done")
