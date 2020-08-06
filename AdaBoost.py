@@ -15,8 +15,8 @@ output_train_y.loc[output_train_x.index, :]
 assert(output_train_y.shape[0] == output_train_x.shape[0])
 
 AdaBoost_Full_Results = None
-for n_estimators in tqdm(range(19,24)):
-    for learning_rate in tqdm(range(85, 95)):
+for n_estimators in tqdm(range(19,60)):
+    for learning_rate in tqdm(range(95, 97)):
     	for md in tqdm(range(2,5)):
             if os.path.isfile('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + '.csv') == False:
                 clf = tree.DecisionTreeRegressor(max_depth=md)
