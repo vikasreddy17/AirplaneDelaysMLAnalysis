@@ -60,8 +60,8 @@ for n_estimators in tqdm(range(19,60)):
             else:
                 AdaBoost_Full_Results = pd.concat([AdaBoost_Full_Results, AdaBoost_Results], axis=0)
 for n_estimators in tqdm(range(20,31)):
-    for learning_rate in tqdm(range(85, 91)):
-        for md in tqdm(range(1,2)):
+    for learning_rate in tqdm(range(88, 91)):
+        for md in tqdm(range(3,5)):
             if os.path.isfile('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv') == False:
                 clf = tree.DecisionTreeRegressor(max_depth=md)
                 clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=n_estimators, learning_rate=(learning_rate/1000), random_state=0)
