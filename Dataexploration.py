@@ -9,6 +9,7 @@ from sklearn import datasets
 from sklearn import svm
 import pdb
 from tqdm import tqdm
+import os
 
 #load data
 flightsdata = pd.read_csv("Dataset/flights.csv")
@@ -33,9 +34,50 @@ corrmatrix = flightsdata.corr()
 sea.heatmap(corrmatrix, annot=True)
 plt.savefig('FULL_correlation_heatmap.png')
 #correlation bar chart
-corrmatrix = corrmatrix.stack()
-corrmatrix = corrmatrix.reset_index()
-pdb.set_trace()
+def imp_clean_corr_data():
+    if os.path.isfile('correlation_matrix.csv') == False:
+      corrmatrix = flightsdata.corr()
+      sea.heatmap(correlation_matrix, annot=True)
+      corrmatrix = corrmatrix.stack()
+      corrmatrix = corrmatrix.reset_index()
+      corrmatrix = corrmatrix.rename(columns={'level_0': 'feature_1', 'level_1': 'feature_2', '0': 'correlation'})
+      corrmatrix.to_csv('correlation_matrix.csv')
+    else:
+      corrmatrix = pd.read_csv('correlation_matrix.csv')
+      corrmatrix = corrmatrix.rename(columns={'level_0': 'feature_1', 'level_1': 'feature_2'})
+      corrmatrix.sort_values(by=['correlation'], inplace=True, ascending=False)
+    list_of_indexes = []
+    for i in range(0,587):
+      list_of_indexes.append(i)
+    corrmatrix = corrmatrix.replace(to_replace=corrmatrix.index, value=list_of_indexes, inplace=False, limit=None, regex=False, method='pad')
+    corrmatrix = corrmatrix.loc[corrmatrix['correlation'] != 1, :]
+    corrmatrix = corrmatrix.loc[corrmatrix['correlation'] != 253.0, :]
+    cleaned_correlation_matrix = None
+    list_of_want_indexes = []
+    for i in range(0,587,2):
+      list_of_want_indexes.append(i)
+    for index in list_of_want_indexes:
+        temp_correlation_matrix = corrmatrix.loc[corrmatrix['index'] == index, :]
+        cleaned_correlation_matrix = pd.concat([cleaned_correlation_matrix, temp_correlation_matrix], axis=0)
+    cleaned_correlation_matrix.sort_values(by=['correlation'], inplace=True, ascending=False)
+    return cleaned_correlation_matrix
+
+corrmatrix = imp_clean_corr_data()
+corrmatrix.to_csv('cleaned_airplain_correlation_table.csv')
+
+def corr_bar_chart(file):
+	corrmatrix = pd.read_csv(file)
+	corrmatrix = corrmatrix.head(20)
+	fea_name_comb = corrmatrix['feature_1'] + corrmatrix['feature_1']
+	corrmatrix = pd.concat([corrmatrix,fea_name_comb], axis=0)
+	corrmatrix.columns = ['0', 'feature_1 and feature_2', 'correlation', 'feature_1', 'feature_2', 'index']
+	print(corrmatrix.columns)
+	corrmatrix.drop(columns=['feature_1', 'feature_2', 'index'])
+	corrmatrix.plot.bar(x=corrmatrix['feature_1 and feature_2'], y=corrmatrix['correlation'])
+	plt.savefig('flights_correlation_bar_chart')
+
+corr_bar_chart('cleaned_airplain_correlation_table.csv')
+
 
 flightsdata = flightsdata.loc[flightsdata['CANCELLED'] == 0,:]
 #missing values

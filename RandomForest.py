@@ -8,26 +8,26 @@ from tqdm import tqdm
 import os
 
 print('start')
-am_rows=1000
-output_train_x = pd.read_csv("output_data/output_train_x.csv", nrows=am_rows)
-output_train_y = pd.read_csv("output_data/output_train_y.csv", nrows=am_rows)
+output_train_x = pd.read_csv("output_data/output_train_x.csv")
+output_train_y = pd.read_csv("output_data/output_train_y.csv")
 output_train_y.loc[output_train_x.index, :]
 assert(output_train_y.shape[0] == output_train_x.shape[0])
 
 RandomForest_Full_Results = None
-for n_estimators in tqdm(range(19, 100)):
+for n_estimators in tqdm(range(20, 31)):
     for crit in tqdm(['mse', 'mae']):
-    	for md in tqdm(range(2,6)):
+    	for md in tqdm(range(3,5)):
             if os.path.isfile('random_forest_crossval/' + str(n_estimators) + str(md) + str(crit) + '.csv') == False:
                 clf1 = RandomForestRegressor(n_estimators=n_estimators, criterion=crit, max_depth=md, random_state=0)
                 scores = cross_validate(clf1, output_train_x,output_train_y['ARRIVAL_DELAY'], cv=5, scoring='r2', return_train_score=True)
-                dictionary = {'n_estimators': [] , 'criterion':[], 'max_depth':[], 'test_score': [], 'train_score': [], 'fit_time': []}
+                dictionary = {'n_estimators': [] , 'criterion':[], 'max_depth':[], 'test_score': [], 'train_score': [], 'fit_time': [], 'train_minus_test': []}
                 dictionary['n_estimators'].append(n_estimators)
                 dictionary['max_depth'].append(md)
                 dictionary['criterion'].append(crit)
                 dictionary['test_score'].append(scores['test_score'].mean())
                 dictionary['train_score'].append(scores['train_score'].mean())
-                dictionary['fit_time'].append(scores['fit_time'])
+                dictionary['fit_time'].append(scores['fit_time'].mean())
+                dictionary['train_minus_test'].append((scores['train_score'].mean()) - (scores['test_score'].mean()))
                 RandomForest_Results=pd.DataFrame(dictionary)
                 RandomForest_Results.to_csv('random_forest_crossval/' + str(n_estimators) + str(md) + str(crit) + '.csv', index=None)
             else:

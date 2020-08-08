@@ -8,7 +8,6 @@ from tqdm import tqdm
 import os
 
 print('start')
-am_rows=1000
 output_train_x = pd.read_csv("output_data/output_train_x.csv")
 output_train_y = pd.read_csv("output_data/output_train_y.csv")
 output_train_y.loc[output_train_x.index, :]

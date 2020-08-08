@@ -1,2 +1,0 @@
-n_estimators,criterion,max_depth,test_score,train_score,fit_time
-85,mae,3,0.8080862378136869,0.845012769457498,[1.74723506 1.68554902 1.6721251  1.66833711 1.65308619]
