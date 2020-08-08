@@ -1,4 +1,5 @@
 Dataset
+.snakemake
 input_data_df.csv
 output_data/output_train_x.csv
 output_data/output_test_x.csv

@@ -3,27 +3,27 @@ rule Dataexploration:
 	output:'output_data/output_train_x.csv', 'output_data/output_test_x.csv','output_data/output_train_y.csv', 'output_data/output_test_y.csv'
 	shell: 'python Dataexploration.py'
 
-rule SVM_CrossVal:
+rule DecisionTree_crossval:
 	input: 'output_data/output_train_x.csv', 'output_data/output_train_y.csv'
-	output: 'supportvm_results.csv'
-	shell: 'python SVM_CrossVal.py'
+	output: 'DecisionTree_full_crossval_results.csv'
+	shell: 'python DecisionTree_crossval.py'
 
-rule DecisionTree:
+rule RandomForest_crossval:
 	input: 'output_data/output_train_x.csv', 'output_data/output_train_y.csv'
-	output: 'decisiontree_results.csv'
-	shell: 'python DecisionTree.py'
+	output: 'RandomForest_full_crossval_results.csv'
+	shell: 'python RandomForest_crossval.py'
 
-rule RandomForest:
+rule AdaBoost_crossval:
 	input: 'output_data/output_train_x.csv', 'output_data/output_train_y.csv'
-	output: 'RandomForest_results.csv'
-	shell: 'python RandomForest.py'
+	output: 'AdaBoost_full_crossval_results.csv'
+	shell: 'python AdaBoost_crossval.py'
 
-rule AdaBoost:
-	input: 'output_data/output_train_x.csv', 'output_data/output_train_y.csv'
-	output: 'AdaBoost_results.csv'
-	shell: 'python AdaBoost.py'
-
-rule Random:
-	input: 'AdaBoost_results.csv', 'decisiontree_results.csv', 'RandomForest_results.csv'
-	output: 'random.csv'
+rule all_cross_val:
+	input: 'output_data/output_train_x.csv', 'output_data/output_test_x.csv','output_data/output_train_y.csv', 'output_data/output_test_y.csv', 'AdaBoost_crossval_results.csv', 'DecisionTree_crossval.csv', 'RandomForest_crossval_results.csv'
+	output: 'all_cross_val.csv'
 	shell: 'echo done > {output}'
+
+rule all_model_test:
+	input: 'DecisionTree_full_crossval_results.csv', 'AdaBoost_crossval_results.csv'
+	output: 'FinalModelScores.csv'
+	shell: 'python DecisionTreeTest.py', 'python AdaBoostTest.py'

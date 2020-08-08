@@ -17,7 +17,7 @@ AdaBoost_Full_Results = None
 for n_estimators in tqdm(range(19,24)):
     for learning_rate in tqdm(range(85, 95)):
     	for md in tqdm(range(2,5)):
-            if os.path.isfile('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv') == False:
+            if os.path.isfile('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv') == False:
                 clf = tree.DecisionTreeRegressor(max_depth=md)
                 clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=n_estimators, learning_rate=(learning_rate/100), random_state=0)
                 scores = cross_validate(clf1, output_train_x,output_train_y['ARRIVAL_DELAY'], cv=5, scoring='r2', return_train_score=True)
@@ -30,9 +30,9 @@ for n_estimators in tqdm(range(19,24)):
                 dictionary['fit_time'].append(scores['fit_time'].mean())
                 dictionary['train_minus_test'].append((scores['train_score'].mean()) - (scores['test_score'].mean()))
                 AdaBoost_Results=pd.DataFrame(dictionary)
-                AdaBoost_Results.to_csv('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv', index=None)
+                AdaBoost_Results.to_csv('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv', index=None)
             else:
-                AdaBoost_Results = pd.read_csv('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv')
+                AdaBoost_Results = pd.read_csv('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv')
             if AdaBoost_Full_Results is None:
                 AdaBoost_Full_Results = AdaBoost_Results
             else:
@@ -40,7 +40,7 @@ for n_estimators in tqdm(range(19,24)):
 for n_estimators in tqdm(range(19,60)):
     for learning_rate in tqdm(range(95, 97)):
         for md in tqdm(range(2,5)):
-            if os.path.isfile('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv') == False:
+            if os.path.isfile('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv') == False:
                 clf = tree.DecisionTreeRegressor(max_depth=md)
                 clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=n_estimators, learning_rate=(learning_rate/100), random_state=0)
                 scores = cross_validate(clf1, output_train_x,output_train_y['ARRIVAL_DELAY'], cv=5, scoring='r2', return_train_score=True)
@@ -53,9 +53,9 @@ for n_estimators in tqdm(range(19,60)):
                 dictionary['fit_time'].append(scores['fit_time'].mean())
                 dictionary['train_minus_test'].append((scores['train_score'].mean()) - (scores['test_score'].mean()))
                 AdaBoost_Results=pd.DataFrame(dictionary)
-                AdaBoost_Results.to_csv('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv', index=None)
+                AdaBoost_Results.to_csv('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv', index=None)
             else:
-                AdaBoost_Results = pd.read_csv('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv')
+                AdaBoost_Results = pd.read_csv('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Ada.csv')
             if AdaBoost_Full_Results is None:
                 AdaBoost_Full_Results = AdaBoost_Results
             else:
@@ -63,7 +63,7 @@ for n_estimators in tqdm(range(19,60)):
 for n_estimators in tqdm(range(20,31)):
     for learning_rate in tqdm(range(88, 91)):
         for md in tqdm(range(3,5)):
-            if os.path.isfile('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv') == False:
+            if os.path.isfile('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv') == False:
                 clf = tree.DecisionTreeRegressor(max_depth=md)
                 clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=n_estimators, learning_rate=(learning_rate/1000), random_state=0)
                 scores = cross_validate(clf1, output_train_x,output_train_y['ARRIVAL_DELAY'], cv=5, scoring='r2', return_train_score=True)
@@ -76,12 +76,12 @@ for n_estimators in tqdm(range(20,31)):
                 dictionary['fit_time'].append(scores['fit_time'].mean())
                 dictionary['train_minus_test'].append((scores['train_score'].mean()) - (scores['test_score'].mean()))
                 AdaBoost_Results=pd.DataFrame(dictionary)
-                AdaBoost_Results.to_csv('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv', index=None)
+                AdaBoost_Results.to_csv('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv', index=None)
             else:
-                AdaBoost_Results = pd.read_csv('Adaboost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv')
+                AdaBoost_Results = pd.read_csv('AdaBoost_crossval/' + str(n_estimators) + str(md) + str(learning_rate) + 'Adaboost.csv')
             if AdaBoost_Full_Results is None:
                 AdaBoost_Full_Results = AdaBoost_Results
             else:
                 AdaBoost_Full_Results = pd.concat([AdaBoost_Full_Results, AdaBoost_Results], axis=0)
-AdaBoost_Full_Results.to_csv('AdaBoost_Full_Results.csv', index=None)
+AdaBoost_Full_Results.to_csv('AdaBoost_full_crossval_results.csv', index=None)
 print('done')
