@@ -6,5 +6,5 @@ output_data/output_test_x.csv
 output_data/output_train_y.csv
 output_data/output_test_y.csv
 Adaboost_crossval
-random_forest_crossval
-decision_tree_crossval
+RandomForest_crossval
+DecisionTree_crossval

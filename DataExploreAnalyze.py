@@ -67,11 +67,10 @@ def corr_bar_chart(file):
 	corrmatrix.drop(columns=['feature_1', 'feature_2', 'Unnamed: 0', 'index'])
 	corrmatrix.plot(kind='barh', x='feature_both', y='correlation')
 	plt.savefig('Charts/flights_correlation_bar_chart.png')
+
 corrmatrix = imp_clean_corr_data()
 corrmatrix.to_csv('Charts/cleaned_airplane_correlation_table.csv')
 corr_bar_chart('Charts/cleaned_airplane_correlation_table.csv')
-
-
 
 #missing values treatment and data cleaning
 flightsdata = flightsdata.loc[flightsdata['CANCELLED'] == 0,:]
