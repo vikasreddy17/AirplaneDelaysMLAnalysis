@@ -1,10 +1,10 @@
 Dataset
 .snakemake
 input_data_df.csv
-output_data/output_train_x.csv
 output_data/output_test_x.csv
-output_data/output_train_y.csv
 output_data/output_test_y.csv
+output_data/output_train_x.csv
+output_data/output_train_y.csv
 Adaboost_crossval
 RandomForest_crossval
 DecisionTree_crossval
