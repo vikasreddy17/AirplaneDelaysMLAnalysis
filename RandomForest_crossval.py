@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn import tree
-from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import make_regression
 from sklearn.model_selection import cross_validate
@@ -14,7 +13,7 @@ output_train_y.loc[output_train_x.index, :]
 assert(output_train_y.shape[0] == output_train_x.shape[0])
 
 RandomForest_Full_Results = None
-for n_estimators in tqdm(range(20, 60)):
+for n_estimators in tqdm(range(42, 47)):
     for md in tqdm(range(3,5)):
         if os.path.isfile('RandomForest_crossval/' + str(n_estimators) + str(md) + '.csv') == False:
             clf1 = RandomForestRegressor(n_estimators=n_estimators, max_depth=md, random_state=0)
@@ -35,5 +34,4 @@ for n_estimators in tqdm(range(20, 60)):
         else:
             RandomForest_Full_Results = pd.concat([RandomForest_Full_Results, RandomForest_Results], axis=0)
 RandomForest_Full_Results.to_csv('RandomForest_full_crossval_results.csv', index=None)
-
 print('done')

@@ -18,12 +18,7 @@ rule AdaBoost_crossval:
 	output: 'AdaBoost_full_crossval_results.csv'
 	shell: 'python AdaBoost_crossval.py'
 
-rule all_cross_val:
-	input: 'output_data/output_train_x.csv', 'output_data/output_test_x.csv','output_data/output_train_y.csv', 'output_data/output_test_y.csv', 'AdaBoost_crossval_results.csv', 'DecisionTree_crossval.csv', 'RandomForest_crossval_results.csv'
-	output: 'all_cross_val.csv'
+rule all_crossval
+	input: 'output_data/output_train_x.csv', 'output_data/output_test_x.csv','output_data/output_train_y.csv', 'output_data/output_test_y.csv','DecisionTree_full_crossval_results.csv', 'RandomForest_full_crossval_results.csv', 'AdaBoost_full_crossval_results.csv'
+	output: 'all_crossval_snake.csv'
 	shell: 'echo done > {output}'
-
-rule all_model_test:
-	input: 'DecisionTree_full_crossval_results.csv', 'AdaBoost_crossval_results.csv'
-	output: 'FinalModelScores.csv'
-	shell: 'python DecisionTreeTest.py', 'python AdaBoostTest.py'

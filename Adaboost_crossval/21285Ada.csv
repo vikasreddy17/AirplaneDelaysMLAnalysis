@@ -1,2 +1,0 @@
-n_estimators,learning_rate,test_score,train_score,max_depth,fit_time
-21,0.85,0.6828282432415624,0.683589187908553,2,55.04325923919678
