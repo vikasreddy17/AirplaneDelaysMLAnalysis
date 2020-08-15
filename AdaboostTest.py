@@ -4,10 +4,8 @@ from sklearn.ensemble import AdaBoostRegressor
 from sklearn.metrics import r2_score
 import os
 
+#load in data
 adaboost_cross_val_results = pd.read_csv("AdaBoost_full_crossval_results.csv")
-adaboost_cross_val_results['train_minus_test'] = adaboost_cross_val_results['train_score'] - adaboost_cross_val_results['test_score']
-adaboost_cross_val_results.sort_values(by=['test_score'], inplace=True, ascending=False)
-adaboost_cross_val_results.to_csv('AdaBoost_full_crossval_results.csv', index=None)
 output_test_x = pd.read_csv("output_data/output_test_x.csv")
 output_test_y = pd.read_csv("output_data/output_test_y.csv")
 output_train_x = pd.read_csv("output_data/output_train_x.csv")
@@ -15,7 +13,7 @@ output_train_y = pd.read_csv("output_data/output_train_y.csv")
 
 #test and score
 clf = tree.DecisionTreeRegressor(max_depth=4)
-clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=25, learning_rate=(89/1000), random_state=0)
+clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=27, learning_rate=(90/1000), random_state=0)
 clf.fit(output_train_x,output_train_y['ARRIVAL_DELAY'])
 predict_val = clf.predict(output_test_x)
 r2_score = r2_score(predict_val, output_test_y)
@@ -23,7 +21,7 @@ print('AdaBoost test score using r-squared metric is')
 print(r2_score)
 
 #create full dataframe for testing scores from the various models
-adaboost_cross_val_best_results = adaboost_cross_val_results.loc[adaboost_cross_val_results['n_estimators'] == 25,:]
+adaboost_cross_val_best_results = adaboost_cross_val_results.loc[adaboost_cross_val_results['n_estimators'] == 27,:]
 adaboost_cross_val_best_results = adaboost_cross_val_best_results.loc[adaboost_cross_val_best_results['max_depth'] == 4,:]
 model_test_scores = {'model': [], 'model_test_scores': []}
 model_test_scores['model'].append('AdaBoost')

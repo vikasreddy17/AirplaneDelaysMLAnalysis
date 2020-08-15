@@ -33,5 +33,7 @@ for leafnodes in tqdm(range(23,27)):
     		Decision_Tree_Full_Results = Decision_Tree_Results
     	else:
     		Decision_Tree_Full_Results = pd.concat([Decision_Tree_Full_Results, Decision_Tree_Results], axis=0)
+Decision_Tree_Full_Results.sort_values(by=['test_score'], inplace=True, ascending=False)
+Decision_Tree_Full_Results = Decision_Tree_Full_Results.round(3)
 Decision_Tree_Full_Results.to_csv('DecisionTree_full_crossval_results.csv', index=None)
 print('done')

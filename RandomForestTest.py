@@ -7,8 +7,6 @@ import os
 
 #load in data
 randomforest_cross_val_results = pd.read_csv("RandomForest_full_crossval_results.csv")
-randomforest_cross_val_results.sort_values(by=['test_score'], inplace=True, ascending=False)
-randomforest_cross_val_results.to_csv('RandomForest_full_crossval_results.csv', index=None)
 output_test_x = pd.read_csv("output_data/output_test_x.csv")
 output_test_y = pd.read_csv("output_data/output_test_y.csv")
 output_train_x = pd.read_csv("output_data/output_train_x.csv")
@@ -23,7 +21,7 @@ print('random forest test score using r-squared metric is')
 print(r2_score)
 
 #create full dataframe for testing scores from the various models
-randomforest_cross_val_best_results = randomforest_cross_val_results.loc[randomforest_cross_val_results['n_estimators'] == 41,:]
+randomforest_cross_val_best_results = randomforest_cross_val_results.loc[randomforest_cross_val_results['n_estimators'] == 50,:]
 randomforest_cross_val_best_results = randomforest_cross_val_best_results.loc[randomforest_cross_val_best_results['max_depth'] == 4,:]
 model_test_scores = {'model': [], 'model_test_scores': []}
 model_test_scores['model'].append('Random Forest')

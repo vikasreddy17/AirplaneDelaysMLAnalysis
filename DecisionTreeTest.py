@@ -8,8 +8,6 @@ from sklearn.model_selection import cross_validate
 
 #load in data
 decisiontree_cross_val_results = pd.read_csv("DecisionTree_full_crossval_results.csv")
-decisiontree_cross_val_results.sort_values(by=['test_score'], inplace=True, ascending=False)
-decisiontree_cross_val_results.to_csv('DecisionTree_full_crossval_results.csv', index=None)
 output_test_x = pd.read_csv("output_data/output_test_x.csv")
 output_test_y = pd.read_csv("output_data/output_test_y.csv")
 output_train_x = pd.read_csv("output_data/output_train_x.csv")

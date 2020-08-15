@@ -36,5 +36,7 @@ for n_estimators in tqdm(range(25,30)):
                 AdaBoost_Full_Results = AdaBoost_Results
             else:
                 AdaBoost_Full_Results = pd.concat([AdaBoost_Full_Results, AdaBoost_Results], axis=0)
+AdaBoost_Full_Results.sort_values(by=['test_score'], inplace=True, ascending=False)
+AdaBoost_Full_Results = AdaBoost_Full_Results.round(3)
 AdaBoost_Full_Results.to_csv('AdaBoost_full_crossval_results.csv', index=None)
 print('done')
