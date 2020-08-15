@@ -29,9 +29,8 @@ ax1.scatter(decisiontree_cross_val_results['test_score'], decisiontree_cross_val
 ax1.scatter(randomforest_cross_val_results['test_score'], randomforest_cross_val_results['fit_time'], s=100, c='tab:blue', marker="o", label='Random Forest')
 ax1.scatter(adaboost_cross_val_results['test_score'], adaboost_cross_val_results['fit_time'], s=100, c='tab:orange', marker="o", label='AdaBoost')
 plt.legend(loc='upper left')
-fig.suptitle('Comparision Between Model Fit Time and Cross Validation Test Scores', fontsize=12)
-plt.xlabel('Cross Validation Test Scores')
-plt.ylabel('Model Fit Time')
+plt.xlabel('Cross Validation Test Scores (r-squared metric)')
+plt.ylabel('Model Fit Time (seconds)')
 plt.savefig('Charts/fit_time_scatterplot.png')
 
 randomforest_cross_val_results = pd.read_csv("RandomForest_full_crossval_results.csv")
@@ -41,16 +40,18 @@ fig = plt.figure()
 ax1 = fig.add_subplot(111)
 ax1.scatter(randomforest_cross_val_results['n_estimators'], randomforest_cross_val_results['fit_time'], s=100, c='tab:blue', marker="o", label='Random Forest')
 plt.legend(loc='upper left')
-fig.suptitle('Comparision Between Model Fit Time and the Number of Weak Learners', fontsize=12)
 plt.xlabel('Number of Weak Learners')
-plt.ylabel('Model Fit Time')
+plt.ylabel('Model Fit Time (seconds)')
 plt.savefig('Charts/randomforest_weak_learers_fit_time_scatterplot.png')
 
 fig = plt.figure()
 ax1 = fig.add_subplot(111)
 ax1.scatter(adaboost_cross_val_results['n_estimators'], adaboost_cross_val_results['fit_time'], s=100, c='tab:orange', marker="o", label='AdaBoost')
 plt.legend(loc='upper left')
-fig.suptitle('Comparision Between Model Fit Time and the Number of Weak Learners', fontsize=12)
 plt.xlabel('Number of Weak Learners')
-plt.ylabel('Model Fit Time')
+plt.ylabel('Model Fit Time (seconds)')
 plt.savefig('Charts/adaboost_weak_learers_fit_time_scatterplot.png')
+
+
+
+

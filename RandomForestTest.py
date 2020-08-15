@@ -3,7 +3,7 @@ from sklearn import tree
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 import os
-
+import pickle as pik
 
 #load in data
 randomforest_cross_val_results = pd.read_csv("RandomForest_full_crossval_results.csv")
@@ -15,6 +15,7 @@ output_train_y = pd.read_csv("output_data/output_train_y.csv")
 #test and score
 clf = RandomForestRegressor(n_estimators=41, max_depth=4, random_state=0)
 clf.fit(output_train_x,output_train_y['ARRIVAL_DELAY'])
+pik.dump(clf, open( 'best_RandomForest_model.pickle','wb'))
 predict_val = clf.predict(output_test_x)
 r2_score = r2_score(predict_val, output_test_y)
 print('random forest test score using r-squared metric is')

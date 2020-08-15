@@ -7,7 +7,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn import datasets
 from sklearn import svm
-import pdb
 from tqdm import tqdm
 import os
 

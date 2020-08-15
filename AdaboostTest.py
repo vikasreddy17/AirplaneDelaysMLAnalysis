@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn import tree
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.metrics import r2_score
+import pickle as pik
 import os
 
 #load in data
@@ -14,8 +15,9 @@ output_train_y = pd.read_csv("output_data/output_train_y.csv")
 #test and score
 clf = tree.DecisionTreeRegressor(max_depth=4)
 clf1 = AdaBoostRegressor(base_estimator=clf, n_estimators=27, learning_rate=(90/1000), random_state=0)
-clf.fit(output_train_x,output_train_y['ARRIVAL_DELAY'])
-predict_val = clf.predict(output_test_x)
+clf1.fit(output_train_x,output_train_y['ARRIVAL_DELAY'])
+pik.dump(clf1, open( 'best_AdaBoost_model.pickle','wb'))
+predict_val = clf1.predict(output_test_x)
 r2_score = r2_score(predict_val, output_test_y)
 print('AdaBoost test score using r-squared metric is')
 print(r2_score)
