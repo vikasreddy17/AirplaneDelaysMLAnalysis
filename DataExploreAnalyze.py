@@ -70,7 +70,7 @@ if os.path.isfile('output_data/output_train_x.csv') == False or os.path.isfile('
     num=0
     for ogairport in dummy_OGAIRPORT['IATA_CODE']:
       if flightsdata_ogairport[i] == ogairport:
-      dummy_OGAIRPORT_list.append(num)
+        dummy_OGAIRPORT_list.append(num)
       else:
         num = num + 1
   flightsdata['dummy_OGAIRPORT'] = dummy_OGAIRPORT_list
@@ -111,6 +111,8 @@ if os.path.isfile('output_data/output_train_x.csv') == False or os.path.isfile('
   y_train.to_csv('output_data/output_train_y.csv' ,index=None)
   y_test.to_csv('output_data/output_test_y.csv',index=None)
 
+flightsdata = pd.read_csv("input_data_df.csv")
+
 #bivariate analysis
 corrmatrix = flightsdata.corr()
 sea.heatmap(corrmatrix, annot=True)
@@ -150,10 +152,14 @@ def imp_clean_corr_data():
     return cleaned_correlation_matrix
 def corr_bar_chart(file):
   corrmatrix = pd.read_csv(file)
-  corrmatrix = corrmatrix.head(20)
-  corrmatrix['feature_both'] = corrmatrix['feature_1'] + " and " + corrmatrix['feature_2']
+  corrmatrix = corrmatrix.head(8)
+  corrmatrix['feature_both'] = corrmatrix['feature_1'] + "\nand\n" + corrmatrix['feature_2']
   corrmatrix.drop(columns=['feature_1', 'feature_2', 'Unnamed: 0', 'index'])
-  corrmatrix.plot(kind='barh', x='feature_both', y='correlation')
+  corrmatrix.plot(kind='barh', x='feature_both', y='correlation', figsize=(20,16), width=.6)
+  plt.xlabel('Correlation (R^2)', fontsize=20)
+  plt.ylabel('Combinations of Features from Dataset', fontsize=20)
+  plt.yticks(fontsize=14)
+  plt.xticks(fontsize=14)
   plt.savefig('Charts/flights_correlation_bar_chart.png')
 
 corrmatrix = imp_clean_corr_data()
