@@ -29,8 +29,10 @@ ax1.scatter(decisiontree_cross_val_results['test_score'], decisiontree_cross_val
 ax1.scatter(randomforest_cross_val_results['test_score'], randomforest_cross_val_results['fit_time'], s=100, c='tab:blue', marker="o", label='Random Forest')
 ax1.scatter(adaboost_cross_val_results['test_score'], adaboost_cross_val_results['fit_time'], s=100, c='tab:orange', marker="o", label='AdaBoost')
 plt.legend(loc='upper left')
-plt.xlabel('Cross Validation Test Scores (r-squared metric)')
-plt.ylabel('Model Fit Time (seconds)')
+plt.xlabel('Cross Validation Test Scores (r-squared metric)', fontsize=20)
+plt.ylabel('Model Fit Time (seconds)', fontsize=20)
+plt.yticks(fontsize=12)
+plt.xticks(fontsize=12)
 plt.savefig('Charts/fit_time_scatterplot.png')
 
 randomforest_cross_val_results = pd.read_csv("RandomForest_full_crossval_results.csv")

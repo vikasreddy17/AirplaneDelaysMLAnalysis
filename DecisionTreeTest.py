@@ -17,7 +17,7 @@ output_test_y = pd.read_csv("output_data/output_test_y.csv")
 output_train_x = pd.read_csv("output_data/output_train_x.csv")
 output_train_y = pd.read_csv("output_data/output_train_y.csv")
 
-#test and score
+#test, score, and save tree structure
 clf = tree.DecisionTreeRegressor(max_leaf_nodes=26, max_depth=19)
 clf.fit(output_train_x,output_train_y['ARRIVAL_DELAY'])
 dot_data = tree.export_graphviz(clf, out_file='DecisionTree.dot')

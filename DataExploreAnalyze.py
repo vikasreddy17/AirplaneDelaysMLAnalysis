@@ -155,10 +155,10 @@ def corr_bar_chart(file):
   corrmatrix = corrmatrix.head(8)
   corrmatrix['feature_both'] = corrmatrix['feature_1'] + "\nand\n" + corrmatrix['feature_2']
   corrmatrix.drop(columns=['feature_1', 'feature_2', 'Unnamed: 0', 'index'])
-  corrmatrix.plot(kind='barh', x='feature_both', y='correlation', figsize=(20,16), width=.6)
+  corrmatrix.plot(kind='barh', x='feature_both', y='correlation', figsize=(25,16), width=.6)
   plt.xlabel('Correlation (R^2)', fontsize=20)
   plt.ylabel('Combinations of Features from Dataset', fontsize=20)
-  plt.yticks(fontsize=14)
+  plt.yticks(fontsize=20)
   plt.xticks(fontsize=14)
   plt.savefig('Charts/flights_correlation_bar_chart.png')
 
